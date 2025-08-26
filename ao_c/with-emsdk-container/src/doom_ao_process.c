@@ -196,12 +196,30 @@ static json_t* handle_get_screen_action() {
 // Handle LoadWAD action
 static json_t* handle_load_wad_action(const json_t* msg) {
     json_t* data_obj = json_object_get(msg, "Data");
-    if (!data_obj || !json_is_object(data_obj)) {
-        return json_pack("{s:s}", "Error", "Missing or invalid Data object");
+    
+    // Handle both cases: Data as object or Data as JSON string
+    if (!data_obj) {
+        return json_pack("{s:s}", "Error", "Missing Data field");
     }
     
-    json_t* wad_obj = json_object_get(data_obj, "wadData");
+    json_t* parsed_data = data_obj;
+    if (json_is_string(data_obj)) {
+        // Data is a JSON string, parse it
+        json_error_t error;
+        parsed_data = json_loads(json_string_value(data_obj), 0, &error);
+        if (!parsed_data) {
+            return json_pack("{s:s}", "Error", "Invalid JSON in Data field");
+        }
+    } else if (!json_is_object(data_obj)) {
+        return json_pack("{s:s}", "Error", "Data must be object or JSON string");
+    }
+    
+    json_t* wad_obj = json_object_get(parsed_data, "wadData");
     if (!wad_obj || !json_is_string(wad_obj)) {
+        // Clean up if we parsed the data
+        if (parsed_data != data_obj) {
+            json_decref(parsed_data);
+        }
         return json_pack("{s:s}", "Error", "Missing or invalid wadData field (should be base64 string)");
     }
     
@@ -217,7 +235,16 @@ static json_t* handle_load_wad_action(const json_t* msg) {
     // Decode base64 WAD data
     ao_wad_size = base64_decode(wad_base64, &ao_wad_data);
     if (ao_wad_size == 0 || !ao_wad_data) {
+        // Clean up if we parsed the data
+        if (parsed_data != data_obj) {
+            json_decref(parsed_data);
+        }
         return json_pack("{s:s}", "Error", "Failed to decode WAD data from base64");
+    }
+    
+    // Clean up if we parsed the data
+    if (parsed_data != data_obj) {
+        json_decref(parsed_data);
     }
     
     return json_pack("{s:s,s:i}", 

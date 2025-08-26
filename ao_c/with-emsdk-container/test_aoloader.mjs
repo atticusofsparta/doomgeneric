@@ -93,14 +93,23 @@ async function testDoomAOLoader() {
             if (typeof messageOrFunction === 'function') {
                 result = await messageOrFunction(handle, memory);
             } else {
+                console.log('   📤 Sending message:', JSON.stringify(messageOrFunction, null, 2));
                 result = await handle(memory, messageOrFunction, AO_LOADER_HANDLER_ENV);
             }
             
             memory = result.Memory;
+            console.log('   📥 Raw result keys:', Object.keys(result));
+            console.log('   📥 Output:', result.Output);
+            console.log('   📥 Error:', result.Error);
+            console.log('   📥 Messages:', result.Messages);
+            console.log('   📥 GasUsed:', result.GasUsed);
+            
             const parsed = parseResult(result);
             
             if (parsed.success) {
-                console.log('   Response:', JSON.stringify(parsed.data, null, 2));
+                console.log('   ✅ Parse success: Output =', parsed.data.Output);
+                console.log('   ✅ Parse success: Error =', parsed.data.Error);
+                console.log('   ✅ Parse success: Messages =', parsed.data.Messages);
                 
                 if (!expectedCheck || expectedCheck(parsed.data)) {
                     console.log('   ✅ PASSED');
@@ -112,11 +121,15 @@ async function testDoomAOLoader() {
                 }
             } else {
                 console.log('   ❌ FAILED: Parse error -', parsed.error);
-                console.log('   Raw result:', parsed.raw);
+                console.log('   📥 Raw result details:', JSON.stringify(parsed.raw, (key, value) => {
+                    if (key === 'Memory') return `[Memory ${value.length} bytes]`;
+                    return value;
+                }, 2));
                 return { success: false, error: parsed.error };
             }
         } catch (error) {
             console.log('   ❌ FAILED: Exception -', error.message);
+            console.log('   📥 Stack:', error.stack);
             return { success: false, error: error.message };
         }
     }
