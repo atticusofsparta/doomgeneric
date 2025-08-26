@@ -1,0 +1,15 @@
+{
+  "name": "with-emsdk-container",
+  "version": "1.0.0",
+  "description": "This build process works by directly running a Docker container using the [`emscripten/emsdk`](https://hub.docker.com/r/emscripten/emsdk) image from Docker Hub.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@permaweb/ao-loader": "^0.0.49"
+  }
+}

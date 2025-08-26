@@ -625,10 +625,20 @@ static void BuildIWADDirList(void)
 // Searches WAD search paths for an WAD with a specific filename.
 // 
 
+// External reference to AO WAD data
+extern unsigned char* ao_wad_data;
+extern size_t ao_wad_size;
+
 char *D_FindWADByName(char *name)
 {
     char *path;
     int i;
+    
+    // Check for memory WAD first
+    if (strcmp(name, "memory_wad") == 0 && ao_wad_data && ao_wad_size > 0)
+    {
+        return strdup(name);
+    }
     
     // Absolute path?
 
