@@ -41,6 +41,9 @@
 
 #include "doomgeneric.h"
 
+// Declare mouse function from doomgeneric platform
+int DG_GetMouse(int* buttons, int* deltaX, int* deltaY);
+
 int vanilla_keyboard_mapping = 1;
 
 // Is the shift key currently down?
@@ -323,16 +326,19 @@ void I_GetEvent(void)
         }
     }
 
-
-                /*
-            case SDL_MOUSEMOTION:
-                event.type = ev_mouse;
-                event.data1 = mouse_button_state;
-                event.data2 = AccelerateMouse(sdlevent.motion.xrel);
-                event.data3 = -AccelerateMouse(sdlevent.motion.yrel);
-                D_PostEvent(&event);
-                break;
-                */
+    // Process mouse events
+    int buttons, deltaX, deltaY;
+    while (DG_GetMouse(&buttons, &deltaX, &deltaY))
+    {
+        if (deltaX != 0 || deltaY != 0 || buttons != 0)
+        {
+            event.type = ev_mouse;
+            event.data1 = buttons;
+            event.data2 = deltaX;
+            event.data3 = -deltaY; // Invert Y to match DOOM's coordinate system
+            D_PostEvent(&event);
+        }
+    }
 }
 
 void I_InitInput(void)
