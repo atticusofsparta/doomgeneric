@@ -1,0 +1,31 @@
+{
+  "name": "doom-ao-tests",
+  "version": "1.0.0",
+  "description": "Comprehensive test suite for DOOM AO integration",
+  "type": "module",
+  "scripts": {
+    "test": "tsx tests/index.ts",
+    "test:init": "tsx tests/initialization/index.ts",
+    "test:movement": "tsx tests/movement/index.ts",
+    "test:menu": "tsx tests/menu/index.ts",
+    "test:gamestate": "tsx tests/gamestate/index.ts",
+    "test:rendering": "tsx tests/rendering/index.ts",
+    "test:input": "tsx tests/input/index.ts",
+    "test:mouse": "tsx tests/mouse/index.ts",
+    "test:integration": "tsx tests/integration/index.ts",
+    "test:unit": "tsx tests/unit/index.ts",
+    "build": "make wasm",
+    "clean": "make clean"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@permaweb/ao-loader": "^0.0.49"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

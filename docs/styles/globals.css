@@ -1,0 +1,184 @@
+:root {
+  /* DOOM Fiery Theme Colors */
+  --doom-ember: #ff4500;
+  --doom-flame: #ff6347;
+  --doom-orange: #ff6b35;
+  --doom-orange-bright: #ff8c42;
+  --doom-red: #dc2626;
+  --doom-red-bright: #ef4444;
+  --doom-charcoal: #1a1a1a;
+  --doom-charcoal-dark: #0f0f0f;
+  --doom-ash: #2c2c2c;
+  --doom-ash-light: #3a3a3a;
+  --doom-ash-warm: #444444;
+  --doom-text-primary: #f5f5f5;
+  --doom-text-secondary: #d1d5db;
+  --doom-text-muted: #9ca3af;
+  --doom-border: #374151;
+}
+
+/* Light Theme (Default) - Subtle DOOM style with warm neutrals */
+:root {
+  --rp-c-brand: var(--doom-orange);
+  --rp-c-brand-light: var(--doom-orange-bright);
+  --rp-c-brand-lighter: var(--doom-flame);
+  --rp-c-text-1: var(--doom-charcoal-dark);
+  --rp-c-text-2: var(--doom-charcoal);
+  --rp-c-text-3: var(--doom-ash);
+  --rp-c-bg: #fafafa;
+  --rp-c-bg-soft: #f5f5f5;
+  --rp-c-bg-mute: #eeeeee;
+  --rp-c-divider: #e0e0e0;
+  --rp-c-divider-light: #f0f0f0;
+  --rp-c-border: var(--doom-orange);
+  --rp-c-gutter: #f8f8f8;
+  --rp-nav-bg-color: rgba(250, 250, 250, 0.95);
+  --rp-sidebar-bg-color: #fafafa;
+  --rp-c-bg-navbar: rgba(250, 250, 250, 0.95);
+  --rp-c-warning: var(--doom-ember);
+  --rp-c-tip: var(--doom-orange);
+  --rp-c-danger: var(--doom-red);
+}
+
+/* Dark Theme - DOOM Charcoal & Ash */
+[data-theme='dark'] {
+  --rp-c-text-1: var(--doom-text-primary);
+  --rp-c-text-2: var(--doom-text-secondary);
+  --rp-c-text-3: var(--doom-text-muted);
+  --rp-c-bg: var(--doom-charcoal);
+  --rp-c-bg-soft: var(--doom-ash);
+  --rp-c-bg-mute: var(--doom-ash-light);
+  --rp-nav-bg-color: var(--doom-charcoal-dark);
+  --rp-sidebar-bg-color: var(--doom-charcoal);
+  --rp-c-bg-navbar: var(--doom-charcoal-dark);
+}
+
+/* Code blocks - DOOM style with charcoal backgrounds */
+:root,
+[data-theme='dark'],
+[data-theme='light'] {
+  --rp-code-bg: var(--doom-charcoal-dark);
+  --rp-code-color: var(--doom-orange-bright);
+  --rp-code-inline-bg: var(--doom-ash);
+  --rp-code-inline-color: var(--doom-orange);
+  --rp-code-block-bg: var(--doom-charcoal-dark);
+  --rp-code-block-color: var(--doom-text-primary);
+  --rp-code-line-highlight-color: var(--doom-ember);
+}
+
+/* Alternative selectors - RSPress might use different attributes */
+html[data-theme='dark'],
+.dark,
+[theme='dark'] {
+  --rp-c-text-1: var(--doom-text-primary);
+  --rp-c-text-2: var(--doom-text-secondary);
+  --rp-c-text-3: var(--doom-text-muted);
+  --rp-c-bg: var(--doom-charcoal);
+  --rp-c-bg-soft: var(--doom-ash);
+  --rp-c-bg-mute: var(--doom-ash-light);
+  --rp-nav-bg-color: var(--doom-charcoal-dark);
+  --rp-sidebar-bg-color: var(--doom-charcoal);
+  --rp-c-bg-navbar: var(--doom-charcoal-dark);
+}
+
+/* DOOM Fiery Scrollbar Styling */
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--doom-charcoal);
+  border-radius: 5px;
+  border: 1px solid var(--doom-ash);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--doom-orange), var(--doom-red));
+  border-radius: 5px;
+  border: 1px solid var(--doom-charcoal);
+  box-shadow: inset 0 0 6px rgba(255, 107, 53, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--doom-orange-bright), var(--doom-red-bright));
+  box-shadow: inset 0 0 8px rgba(255, 107, 53, 0.5);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--doom-charcoal);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--doom-orange) var(--doom-charcoal);
+}
+
+/* Theme-aware DOOM-style enhancements */
+
+/* Light mode body */
+body {
+  background: var(--rp-c-bg);
+}
+
+/* Dark mode body with gradient */
+[data-theme='dark'] body,
+html[data-theme='dark'] body,
+.dark body {
+  background: linear-gradient(135deg, var(--doom-charcoal) 0%, var(--doom-charcoal-dark) 100%);
+}
+
+/* Subtle glow effects for dark mode */
+[data-theme='dark'] h1,
+html[data-theme='dark'] h1,
+.dark h1 {
+  text-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+/* Enhanced hover effects in dark mode */
+[data-theme='dark'] a:hover,
+html[data-theme='dark'] a:hover,
+.dark a:hover {
+  text-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+}
+
+/* General link transitions */
+a:hover {
+  transition: all 0.3s ease;
+}
+
+/* Navigation hover effects */
+.rspress-nav .nav-menu a:hover {
+  text-shadow: 0 0 8px rgba(255, 107, 53, 0.5);
+}
+
+/* Enhanced code block styling */
+pre[class*="language-"] {
+  background: var(--rp-code-block-bg) !important;
+  border: 1px solid var(--doom-ash);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Fiery selection highlighting */
+::selection {
+  background: rgba(255, 107, 53, 0.3);
+  color: var(--rp-c-text-1);
+}
+
+/* Enhanced brand colors with ember effects */
+.rspress-nav .nav-title {
+  background: linear-gradient(45deg, var(--doom-orange), var(--doom-ember));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Dark mode enhanced title glow */
+[data-theme='dark'] .rspress-nav .nav-title,
+html[data-theme='dark'] .rspress-nav .nav-title,
+.dark .rspress-nav .nav-title {
+  text-shadow: 0 0 15px rgba(255, 107, 53, 0.2);
+}
